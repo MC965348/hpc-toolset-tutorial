@@ -2,7 +2,8 @@ ARG HPCTS_VERSION=latest
 
 FROM --platform=linux/amd64 ubccr/hpcts:slurm-${HPCTS_VERSION} as stage-amd64
 RUN dnf install -y https://yum.osc.edu/ondemand/2.0/ondemand-release-web-2.0-1.noarch.rpm
-RUN dnf install -y netcat ondemand ondemand-dex
+
+RUN dnf install -y nc ondemand ondemand-dex
 RUN sed -i 's/\-nohttpd//' /opt/ood/ondemand/root/usr/share/gems/2.7/ondemand/2.0.27/gems/ood_core-0.19.0/lib/ood_core/batch_connect/templates/vnc.rb
 
 FROM --platform=linux/arm64 ubccr/hpcts:slurm-${HPCTS_VERSION} as stage-arm64
