@@ -14,7 +14,7 @@ RUN dnf -y module reset nodejs
 RUN dnf -y module enable nodejs:14
 RUN dnf module enable -y ruby:2.7
 #install nc ondemand should work now
-RUN dnf install -y nc ondemand ondemand-dex
+RUN dnf install -y nc ondemand-2.0.27-1.el8 ondemand-dex-2.27.0-2.el8
 #ondemand should be version 2.0.27 in path -- install older version of ondemand 
 # dnf install -y nc ondemand=2.0.27 ondemand-dex ??
 RUN sed -i 's/\-nohttpd//' /opt/ood/ondemand/root/usr/share/gems/2.7/ondemand/2.0.27/gems/ood_core-0.19.0/lib/ood_core/batch_connect/templates/vnc.rb
