@@ -1,8 +1,19 @@
 ARG HPCTS_VERSION=latest
 
 FROM --platform=linux/amd64 ubccr/hpcts:slurm-${HPCTS_VERSION} as stage-amd64
-RUN dnf install -y https://yum.osc.edu/ondemand/2.0/ondemand-release-web-2.0-1.noarch.rpm
+#RUN dnf install -y https://yum.osc.edu/ondemand/2.0/ondemand-release-web-2.0-1.noarch.rpm
 
+#added 2/15
+#update first
+RUN dnf update -y
+RUN dnf install -y https://yum.osc.edu/ondemand/2.0/ondemand-release-web-2.0-1.noarch.rpm
+RUN dnf install -y epel-release
+RUN dnf install -y lua-posix
+RUN dnf config-manager --set-enabled powertools
+RUN dnf -y module reset nodejs
+RUN dnf -y module enable nodejs:14
+RUN dnf module enable -y ruby:2.7
+#install nc ondemand should work now
 RUN dnf install -y nc ondemand ondemand-dex
 RUN sed -i 's/\-nohttpd//' /opt/ood/ondemand/root/usr/share/gems/2.7/ondemand/2.0.27/gems/ood_core-0.19.0/lib/ood_core/batch_connect/templates/vnc.rb
 
