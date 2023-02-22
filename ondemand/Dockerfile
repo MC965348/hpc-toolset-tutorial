@@ -38,9 +38,8 @@ ARG TARGETARCH
 FROM stage-${TARGETARCH} as final
 
 COPY . /build
-RUN /build/install.sh 
 RUN /build/sedscript.sh 
-RUN rm -rf /build
+RUN /build/install.sh && rm -rf /build
 COPY cluster-config.yml /etc/ood/config/clusters.d/hpc.yml
 COPY bc_desktop.yml /etc/ood/config/apps/bc_desktop/hpc.yml
 COPY jupyter /var/www/ood/apps/sys/jupyter
