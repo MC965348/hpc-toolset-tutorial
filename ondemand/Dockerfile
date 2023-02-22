@@ -37,8 +37,10 @@ ARG TARGETARCH
 
 FROM stage-${TARGETARCH} as final
 
+RUN chmod +x sedscript.sh
+
 COPY . /build
-RUN [ -e /build/sedscript.sh ] && chmod +x /build/sedscript.sh
+#RUN [ -e /build/sedscript.sh ] && chmod +x /build/sedscript.sh
 RUN /build/sedscript.sh 
 RUN /build/install.sh && rm -rf /build
 COPY cluster-config.yml /etc/ood/config/clusters.d/hpc.yml
